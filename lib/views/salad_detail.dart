@@ -200,14 +200,14 @@ class _SaladDetailViewState extends State<SaladDetailView> {
               onTap: () => print("Add to cart"),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.orange,
+                  color: Colors.deepOrange,
                   border: Border.all(color: Colors.white, width: 3.0),
                   borderRadius: const BorderRadius.all(
                     Radius.circular(100.0),
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.orange.withOpacity(0.35),
+                      color: Colors.deepOrange.withOpacity(0.35),
                       blurRadius: 20.0,
                       offset: const Offset(0.0, 10.0),
                     ),
