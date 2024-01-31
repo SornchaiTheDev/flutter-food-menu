@@ -1,17 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_exercise/models/menu.dart';
 
-class Menu extends StatelessWidget {
+class Menu extends StatefulWidget {
   const Menu({super.key, required this.menu});
 
   final MenuModel menu;
 
   @override
+  State<Menu> createState() => _MenuState();
+}
+
+class _MenuState extends State<Menu> {
+  bool isFavorited = false;
+  @override
   Widget build(BuildContext context) {
-    final MenuModel(:name, :calories, :image, :price) = menu;
+    final MenuModel(:name, :calories, :image, :price) = widget.menu;
 
     void handleOnTap() {
-      Navigator.pushNamed(context, "/sald-detail", arguments: menu);
+      Navigator.pushNamed(context, "/sald-detail", arguments: widget.menu);
+    }
+
+    void handleOnTapFavorite() {
+      setState(() {
+        isFavorited = !isFavorited;
+      });
     }
 
     return GestureDetector(
@@ -37,7 +49,7 @@ class Menu extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: handleOnTapFavorite,
                       padding: const EdgeInsets.all(10.0),
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
@@ -49,8 +61,8 @@ class Menu extends StatelessWidget {
                           ),
                         ),
                       ),
-                      icon: const Icon(
-                        Icons.favorite_border,
+                      icon: Icon(
+                        isFavorited ? Icons.favorite : Icons.favorite_border,
                         color: Colors.white,
                         size: 28.0,
                       ),
