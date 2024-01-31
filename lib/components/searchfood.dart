@@ -8,6 +8,9 @@ class SearchFood extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
+        border: Border.all(
+          color: Colors.grey.withOpacity(0.4),
+        ),
         borderRadius: BorderRadius.circular(100.0),
         boxShadow: [
           BoxShadow(

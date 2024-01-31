@@ -10,27 +10,33 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appbar(),
-      bottomNavigationBar: bottomNavigation(context),
-      body: ListView(
-        padding: const EdgeInsets.all(16.0),
-        children: const [
-          Text(
-            "Let's eat \nHealthy Food 🍔",
-            style: TextStyle(
-              fontSize: 36.0,
-              fontFamily: "FiraSans",
-              fontWeight: FontWeight.bold,
+      body: Container(
+        color: Colors.white,
+        child: Stack(
+          children: [
+            ListView(
+              padding: const EdgeInsets.all(16.0),
+              children: const [
+                Text(
+                  "Let's eat \nHealthy Food 🍔",
+                  style: TextStyle(
+                    fontSize: 36.0,
+                    fontFamily: "FiraSans",
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 24.0),
+                SearchFood(),
+                SizedBox(height: 42.0),
+                CategoryList(),
+                SizedBox(
+                  height: 80.0,
+                ),
+                MenuList(),
+              ],
             ),
-          ),
-          SizedBox(height: 24.0),
-          SearchFood(),
-          SizedBox(height: 42.0),
-          CategoryList(),
-          SizedBox(
-            height: 80.0,
-          ),
-          MenuList(),
-        ],
+          ],
+        ),
       ),
     );
   }
