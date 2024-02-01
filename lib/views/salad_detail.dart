@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_exercise/models/ingredient_model.dart';
 import 'package:flutter_exercise/models/menu.dart';
+import 'package:flutter_exercise/models/rating.dart';
 import "package:line_icons/line_icons.dart";
 
 class SaladDetailView extends StatefulWidget {
@@ -23,7 +24,8 @@ class _SaladDetailViewState extends State<SaladDetailView> {
   @override
   Widget build(BuildContext context) {
     final menuModel = ModalRoute.of(context)!.settings.arguments as MenuModel;
-    final MenuModel(:name, :calories, :image, :price) = menuModel;
+    final MenuModel(:name, :calories, :image, :price, :rating, :cookingTime) =
+        menuModel;
 
     return Scaffold(
       body: Stack(
@@ -102,9 +104,9 @@ class _SaladDetailViewState extends State<SaladDetailView> {
                             const SizedBox(height: 20),
                             Row(
                               children: [
-                                buildFavoriteBadge(),
+                                buildFavoriteBadge(rating),
                                 const Spacer(),
-                                buildCookTime(context),
+                                buildCookTime(context, cookingTime),
                               ],
                             ),
                             const SizedBox(height: 24.0),
@@ -150,7 +152,7 @@ class _SaladDetailViewState extends State<SaladDetailView> {
                                         .bodyMedium!
                                         .copyWith(color: Colors.orange)),
                                 Text(
-                                  "$price",
+                                  (price * amount).toStringAsFixed(2),
                                   style: Theme.of(context)
                                       .textTheme
                                       .headlineSmall!
@@ -225,7 +227,7 @@ class _SaladDetailViewState extends State<SaladDetailView> {
     );
   }
 
-  Row buildCookTime(BuildContext context) {
+  Row buildCookTime(BuildContext context, String cookingTime) {
     return Row(
       children: [
         Text(
@@ -236,7 +238,7 @@ class _SaladDetailViewState extends State<SaladDetailView> {
         ),
         const SizedBox(width: 10.0),
         Text(
-          "10-20 min",
+          "$cookingTime min",
           style: TextStyle(
               fontSize: 24.0,
               color: Colors.grey[700],
@@ -246,7 +248,8 @@ class _SaladDetailViewState extends State<SaladDetailView> {
     );
   }
 
-  Row buildFavoriteBadge() {
+  Row buildFavoriteBadge(Rating rating) {
+    final Rating(:count, :average) = rating;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.baseline,
       textBaseline: TextBaseline.alphabetic,
@@ -256,10 +259,15 @@ class _SaladDetailViewState extends State<SaladDetailView> {
           style: Theme.of(context).textTheme.headlineSmall,
         ),
         const SizedBox(width: 8.0),
-        const Text('4.9',
-            style: TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold)),
+        Text(
+          average.toStringAsFixed(1),
+          style: const TextStyle(
+            fontSize: 26.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         const SizedBox(width: 4.0),
-        Text('(20+)',
+        Text('($count+)',
             style: Theme.of(context)
                 .textTheme
                 .bodySmall!

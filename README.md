@@ -4,7 +4,9 @@ First flutter design project in Mobile Application course at Kasetsart universit
 
 ## Screenshots
 
-![My Design](/screenshots/me.png)
+<img src="screenshots/1.png" align="left" width="120">
+<img src="screenshots/2.png" align="left" width="120">
+<img src="screenshots/3.png" align="left" width="120">
 
 ![Reference](/screenshots/ref.jpeg)
 

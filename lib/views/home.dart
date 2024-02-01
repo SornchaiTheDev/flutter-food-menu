@@ -2,41 +2,61 @@ import 'package:flutter/material.dart';
 import 'package:flutter_exercise/components/category_list.dart';
 import 'package:flutter_exercise/components/menu_list.dart';
 import 'package:flutter_exercise/components/searchfood.dart';
+import 'package:line_icons/line_icons.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _appbar(),
-      body: Container(
-        color: Colors.white,
-        child: Stack(
-          children: [
-            ListView(
-              padding: const EdgeInsets.all(16.0),
-              children: const [
-                Text(
-                  "Let's eat \nHealthy Food 🍔",
-                  style: TextStyle(
-                    fontSize: 36.0,
-                    fontFamily: "FiraSans",
-                    fontWeight: FontWeight.bold,
-                  ),
+    return Padding(
+      padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
+      child: ListView(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(LineIcons.shapes, size: 36.0),
+              ),
+              Container(
+                width: 52.0,
+                height: 52.0,
+                clipBehavior: Clip.hardEdge,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
                 ),
-                SizedBox(height: 24.0),
-                SearchFood(),
-                SizedBox(height: 42.0),
-                CategoryList(),
-                SizedBox(
-                  height: 80.0,
+                child: Image.network(
+                  "https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg",
+                  fit: BoxFit.cover,
                 ),
-                MenuList(),
-              ],
+              )
+            ],
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 10.0),
+            child: const Text(
+              "Let's eat \nHealthy Food 🍔",
+              style: TextStyle(
+                fontSize: 36.0,
+                fontFamily: "FiraSans",
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 24.0),
+          const SearchFood(),
+          const SizedBox(height: 42.0),
+          const CategoryList(),
+          const SizedBox(
+            height: 80.0,
+          ),
+          const MenuList(),
+          const SizedBox(
+            height: 60.0,
+          ),
+        ],
       ),
     );
   }
@@ -71,35 +91,6 @@ class HomeView extends StatelessWidget {
           ),
           label: "Profile",
         ),
-      ],
-    );
-  }
-
-  AppBar _appbar() {
-    return AppBar(
-      toolbarHeight: 80,
-      scrolledUnderElevation: 0.0,
-      leading: Container(
-        margin: const EdgeInsets.all(12.0),
-        child: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.border_all_rounded, size: 36.0),
-        ),
-      ),
-      actions: [
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 18.0),
-          width: 52.0,
-          height: 52.0,
-          clipBehavior: Clip.hardEdge,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          child: Image.network(
-            "https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg",
-            fit: BoxFit.cover,
-          ),
-        )
       ],
     );
   }
