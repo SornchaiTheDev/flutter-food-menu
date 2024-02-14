@@ -1,4 +1,4 @@
-import 'package:flutter_exercise/models/menu.dart';
+import 'package:flutter_exercise/models/menu_model.dart';
 import 'package:flutter_exercise/models/rating.dart';
 
 List menus = [

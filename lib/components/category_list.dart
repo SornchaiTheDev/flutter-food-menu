@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_exercise/components/category.dart';
-import 'package:flutter_exercise/models/category.dart';
+import 'package:flutter_exercise/models/category_model.dart';
 
 class CategoryList extends StatelessWidget {
   const CategoryList({super.key});

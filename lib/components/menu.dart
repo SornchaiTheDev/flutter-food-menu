@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_exercise/models/menu.dart';
+import 'package:flutter_exercise/models/menu_model.dart';
 
 class Menu extends StatefulWidget {
   const Menu({super.key, required this.menu});

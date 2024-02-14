@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_exercise/components/menu.dart';
 import 'package:flutter_exercise/datasource/menus.dart';
-import 'package:flutter_exercise/models/menu.dart';
+import 'package:flutter_exercise/models/menu_model.dart';
 
 class FavoriteView extends StatelessWidget {
   const FavoriteView({super.key});

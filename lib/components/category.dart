@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_exercise/models/category.dart';
+import 'package:flutter_exercise/models/category_model.dart';
 
 class Category extends StatelessWidget {
   const Category({super.key, required this.category});

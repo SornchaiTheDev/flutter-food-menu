@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_exercise/components/order_amount.dart';
+import 'package:flutter_exercise/models/cart_model.dart';
 import 'package:flutter_exercise/models/ingredient_model.dart';
-import 'package:flutter_exercise/models/menu.dart';
+import 'package:flutter_exercise/models/menu_model.dart';
+import 'package:flutter_exercise/models/order.dart';
 import 'package:flutter_exercise/models/rating.dart';
 import "package:line_icons/line_icons.dart";
+import 'package:provider/provider.dart';
 
 class SaladDetailView extends StatefulWidget {
   const SaladDetailView({
@@ -44,12 +48,36 @@ class _SaladDetailViewState extends State<SaladDetailView> {
                         onPressed: handleOnPressBack,
                         icon: const Icon(LineIcons.arrowLeft),
                       ),
-                      IconButton(
-                        onPressed: () => {},
-                        icon: const Icon(LineIcons.shoppingBag),
-                        style: ButtonStyle(
-                            padding: MaterialStateProperty.all(
-                                const EdgeInsets.all(10.0))),
+                      GestureDetector(
+                        onTap: () => Navigator.pushNamed(context, "/orders"),
+                        child: Stack(
+                          children: [
+                            const SizedBox(
+                              width: 40,
+                              height: 40,
+                              child: Icon(LineIcons.shoppingBag),
+                            ),
+                            Positioned(
+                              top: 0,
+                              right: 0,
+                              child: Container(
+                                width: 22.0,
+                                height: 22.0,
+                                decoration: BoxDecoration(
+                                  color: Colors.deepOrange,
+                                  borderRadius: BorderRadius.circular(100.0),
+                                ),
+                                child: Consumer<CartModel>(
+                                    builder: (context, cart, child) {
+                                  return Text(
+                                    cart.orderAmount.toString(),
+                                    textAlign: TextAlign.center,
+                                  );
+                                }),
+                              ),
+                            )
+                          ],
+                        ),
                       )
                     ],
                   ),
@@ -198,27 +226,40 @@ class _SaladDetailViewState extends State<SaladDetailView> {
           Positioned(
             bottom: 40,
             right: 20,
-            child: GestureDetector(
-              onTap: () => print("Add to cart"),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.deepOrange,
-                  border: Border.all(color: Colors.white, width: 3.0),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(100.0),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.deepOrange.withOpacity(0.35),
-                      blurRadius: 20.0,
-                      offset: const Offset(0.0, 10.0),
+            child: Consumer<CartModel>(
+              builder: (context, cart, child) => GestureDetector(
+                onTap: () {
+                  cart.addOrder(OrderModel(menu: menuModel, amount: amount));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Added to cart"),
+                      duration: Duration(seconds: 1),
                     ),
-                  ],
+                  );
+                  setState(() {
+                    amount = 1;
+                  });
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.deepOrange,
+                    border: Border.all(color: Colors.white, width: 3.0),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(100.0),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.deepOrange.withOpacity(0.35),
+                        blurRadius: 20.0,
+                        offset: const Offset(0.0, 10.0),
+                      ),
+                    ],
+                  ),
+                  width: 80.0,
+                  height: 80.0,
+                  child: const Icon(LineIcons.plus,
+                      size: 28.0, color: Colors.white),
                 ),
-                width: 80.0,
-                height: 80.0,
-                child:
-                    const Icon(LineIcons.plus, size: 28.0, color: Colors.white),
               ),
             ),
           ),
@@ -361,87 +402,6 @@ class FavoriteIcon extends StatelessWidget {
           size: 28.0,
         ),
       ),
-    );
-  }
-}
-
-class OrderAmount extends StatelessWidget {
-  const OrderAmount({
-    super.key,
-    required this.amount,
-    required this.onPressedPlus,
-    required this.onPressedMinus,
-  });
-
-  final int amount;
-  final VoidCallback onPressedPlus;
-  final VoidCallback onPressedMinus;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 140,
-      padding: const EdgeInsets.all(10.0),
-      decoration: BoxDecoration(
-        color: Colors.deepOrange,
-        borderRadius: const BorderRadius.all(
-          Radius.circular(100.0),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.deepOrange.withOpacity(0.35),
-            blurRadius: 20.0,
-            offset: const Offset(0.0, 10.0),
-          ),
-        ],
-      ),
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        GestureDetector(
-          onTap: onPressedMinus,
-          child: Container(
-            padding: const EdgeInsets.all(2.0),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(
-                Radius.circular(20.0),
-              ),
-            ),
-            child: const Center(
-              child: Icon(
-                LineIcons.minus,
-                size: 18.0,
-                color: Colors.orange,
-              ),
-            ),
-          ),
-        ),
-        Text(
-          "$amount",
-          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-        ),
-        GestureDetector(
-          onTap: onPressedPlus,
-          child: Container(
-            padding: const EdgeInsets.all(2.0),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(
-                Radius.circular(20.0),
-              ),
-            ),
-            child: const Center(
-              child: Icon(
-                LineIcons.plus,
-                size: 18.0,
-                color: Colors.orange,
-              ),
-            ),
-          ),
-        ),
-      ]),
     );
   }
 }
